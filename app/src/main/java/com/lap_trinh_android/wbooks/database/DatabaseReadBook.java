@@ -1,9 +1,14 @@
 package com.lap_trinh_android.wbooks.database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.lap_trinh_android.wbooks.model.Account;
 
 public class DatabaseReadBook extends SQLiteOpenHelper {
 
@@ -227,5 +232,29 @@ public class DatabaseReadBook extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-//    Tạo CSDL thành công gồm 2 bảng tài khoản và sách
+
+//    Phương thức lấy tất cả tài khoản
+    public Cursor getData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_ACCOUNT, null);
+        return res;
+    }
+
+//    Phương thức add tài khoản vào database
+    public  void AddAccount(Account account) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+//        Thực hiện insert thoogn qua ContentValues
+        ContentValues values = new ContentValues();
+        values.put(NAME_ACCOUNT, account.getmNameAccount());
+        values.put(PASSWORD, account.getmPassword());
+        values.put(EMAIL, account.getmEmail());
+        values.put(AUTHORIZE, account.getmAuthorization());
+
+        db.insert(TABLE_ACCOUNT, null, values);
+
+//        Đóng lại khi không dùng
+        db.close();
+        Log.e("ADD TK", "TC");
+    }
 }
