@@ -1,12 +1,14 @@
 package com.lap_trinh_android.wbooks;
 
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.lap_trinh_android.wbooks.database.DatabaseReadBook;
 import com.lap_trinh_android.wbooks.model.Account;
