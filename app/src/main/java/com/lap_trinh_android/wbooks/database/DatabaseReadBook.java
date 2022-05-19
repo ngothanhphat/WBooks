@@ -268,10 +268,11 @@ public class DatabaseReadBook extends SQLiteOpenHelper {
     public Cursor getData1() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor res= db.rawQuery("SELECT * FROM " + TABLE_BOOK + " ORDER BY " + ID_BOOK + " DESC LIMIT 3", null);
+        Cursor res= db.rawQuery("SELECT * FROM " + TABLE_BOOK + " ORDER BY " + ID_BOOK + " DESC LIMIT 10", null);
 
         return res;
     }
+
 
 //    Lấy tất cả sách
     public Cursor getData2() {

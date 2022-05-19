@@ -12,7 +12,7 @@
         android:textColor="#2196F3"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:text="Đăng nhập"
+        android:text="Đăng nhập WBooks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
     <EditText
