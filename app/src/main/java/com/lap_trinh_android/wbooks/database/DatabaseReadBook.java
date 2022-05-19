@@ -9,6 +9,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.lap_trinh_android.wbooks.model.Account;
+import com.lap_trinh_android.wbooks.model.Book;
 
 public class DatabaseReadBook extends SQLiteOpenHelper {
 
@@ -207,6 +208,10 @@ public class DatabaseReadBook extends SQLiteOpenHelper {
             "\n" +
             "Ý nghĩa câu chuyện: Có thể cậu bé chăn cừu không phải ngay sau đó sẽ trở nên khiêm tốn, học hỏi luôn được nhưng rõ ràng là cậu đã nhận ra người ta không thể sống lẻ loi được.','https://toplist.vn/images/800px/cau-be-chan-cuu-va-cay-da-co-thu-230184.jpg',1)";
 
+    private String SQLQuery10 = "INSERT INTO book VALUES (null,'Lord of the Flies (Chúa Ruồi) – William Golding','Lord of the Flies hay còn biết đến với cái tên Chúa Ruồi của nhà văn William Golding là một cuốn tiểu thuyết tiếng Anh kinh điển. Cuốn tiểu thuyết này được xuất bản vào năm 1954 là trở thành kiệt tác văn học của thế kỷ XX.\n"+
+            "Câu chuyện kể về một nhóm thành thiếu niên bị bỏ lại trên một hòn đảo hoang do chiến tranh hạt nhân. Tại đây họ phải thiết lập kỉ luật để sinh tồn nhưng với tâm hồn của những đứa trẻ thì kỷ luật cũng chỉ như một trò chơi và chẳng mấy mà chán. Kết quả chúng sống như “bọn mọi rợ” và sẵn sàng tấn công lẫn nhau khi bất đồng quan điểm. Câu chuyện kết thúc với hình ảnh người thủ lĩnh cũ của nhóm người đang bị rượt đuổi thì may mắn được người lớn cứu thoát để lại nhiều luồng suy nghĩ trong lòng độc giả.\n"+
+            "Ngoài cốt truyện đặc sắc thì “Chúa Ruồi” Còn thu hút độc giả bởi tạo hình bìa sách ấn tượng và cách hành văn độc đáo. Tác giả đã khiến người đọc thực sự bị cuốn vào “những cuộc đi săn”, “những lần rượt đuổi” một cách chân thực nhất."+
+            "','https://toplist.vn/images/800px/cau-be-chan-cuu-va-cay-da-co-thu-230184.jpg',1)";
 //    Tạo bảng tại phương thức này
     public DatabaseReadBook(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -225,6 +230,7 @@ public class DatabaseReadBook extends SQLiteOpenHelper {
         db.execSQL(SQLQuery7);
         db.execSQL(SQLQuery8);
         db.execSQL(SQLQuery9);
+        db.execSQL(SQLQuery10);
 
     }
 
@@ -256,5 +262,42 @@ public class DatabaseReadBook extends SQLiteOpenHelper {
 //        Đóng lại khi không dùng
         db.close();
         Log.e("ADD TK", "TC");
+    }
+
+//    Lấy 3 truyện mới nhất
+    public Cursor getData1() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res= db.rawQuery("SELECT * FROM " + TABLE_BOOK + " ORDER BY " + ID_BOOK + " DESC LIMIT 3", null);
+
+        return res;
+    }
+
+//    Lấy tất cả sách
+    public Cursor getData2() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_BOOK, null);
+
+        return res;
+    }
+
+//    Add sách
+    public void AddBook(Book book){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues ();
+        values.put(NAME_BOOK, book.getBookName());
+        values.put(CONTENT, book.getContent());
+        values.put(IMAGE, book.getImage());
+        values.put(ID_ACCOUNT, book.getId_Acc());
+        db.insert(TABLE_BOOK, null, values);
+        db.close();
+    }
+
+//    Delete sách
+    public int DeleteBook(int i){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int res = db.delete(TABLE_BOOK, ID_BOOK+" = "+i, null);
+        return res;
     }
 }

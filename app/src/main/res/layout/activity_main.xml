@@ -17,6 +17,8 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
+                android:background="#FFFFFF"
+                app:titleTextColor="#000000"
                 android:id="@+id/tool_bar_main"
                 app:title="Tủ sách"
                 android:layout_width="match_parent"
@@ -24,11 +26,12 @@
 
             <ViewFlipper
                 android:id="@+id/view_flipper"
+                android:background="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"></ViewFlipper>
 
             <LinearLayout
-                android:background="#fff"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -44,6 +47,7 @@
 
                 <ListView
                     android:id="@+id/list_view"
+                    android:background="#03A9F4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></ListView>
             </LinearLayout>
